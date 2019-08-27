@@ -9,8 +9,8 @@
   <h2>Shopping list</h2>
 
   <ul>
-    <li *ngFor="let shopping of shoppingItems$ | async">
-      {{shopping.name}}
+    <li *ngFor="let shopping of shoppingItems$ | async" >
+      {{shopping.name}} <span (click)="deleteItem(shopping.id)">X</span>
     </li>
   </ul>
 
