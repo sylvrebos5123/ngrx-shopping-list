@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from './store/models/app-state.model';
 import { Observable } from 'rxjs';
 import { ShoppingItem } from './store/models/shopping-item.model';
-import { AddItemAction, DeleteItemAction } from './store/actions/shopping.actions';
+import { AddItemAction, DeleteItemAction, UpdateItemAction } from './store/actions/shopping.actions';
 import {v4 as uuid} from 'uuid';
 
 @Component({
@@ -15,6 +15,9 @@ export class AppComponent implements OnInit {
   shoppingItems$: Observable<Array<ShoppingItem>>;
   newShoppingItem: ShoppingItem = {id: '', name: ''};
   title = 'ngrx-shopping-list';
+  update: boolean = false;
+  updatedName: string;
+  updatedId: string;
 
 
   constructor(private store: Store<AppState>) {}
@@ -35,6 +38,34 @@ export class AppComponent implements OnInit {
   deleteItem(index: string) {
 
     this.store.dispatch(new DeleteItemAction(index));
+
+  }
+
+  openFormUpdate(shoppingItem: ShoppingItem){
+    this.update = true;
+    this.updatedName = shoppingItem.name;
+    this.updatedId = shoppingItem.id;
+  }
+
+  updateItem(shoppingItem: ShoppingItem) {
+    let i=0;
+    this.shoppingItems$.forEach(function(value) {
+
+      if(value[i].id === shoppingItem.id){
+        value[i].name=shoppingItem.name;
+      }
+     // value=shoppingItem;
+      console.log(value[i].id);
+      i++;
+
+    });
+
+    console.log('update');
+    shoppingItem.name = "Updated article";
+    console.log(shoppingItem);
+
+
+    this.store.dispatch(new UpdateItemAction(shoppingItem));
 
   }
 }

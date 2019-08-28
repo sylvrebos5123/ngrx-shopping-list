@@ -8,6 +8,9 @@ export enum ShoppingActionTypes{
   DELETE_ITEM = '[SHOPPING] Delete Item',
   DELETE_ITEM_SUCCESS = '[SHOPPING] Delete Item Success',
   DELETE_ITEM_FAILURE = '[SHOPPING] Delete Item Failure',
+  UPDATE_ITEM = '[SHOPPING] Update Item',
+  UPDATE_ITEM_SUCCESS = '[SHOPPING] Update Item Success',
+  UPDATE_ITEM_FAILURE = '[SHOPPING] Update Item Failure',
 }
 
 export class AddItemAction implements Action{
@@ -20,4 +23,9 @@ export class DeleteItemAction implements Action{
   constructor(public payload: string) {}
 }
 
-export type ShoppingAction = AddItemAction | DeleteItemAction;
+export class UpdateItemAction implements Action{
+  readonly type = ShoppingActionTypes.UPDATE_ITEM;
+  constructor(public payload: ShoppingItem) {}
+}
+
+export type ShoppingAction = AddItemAction | DeleteItemAction | UpdateItemAction;

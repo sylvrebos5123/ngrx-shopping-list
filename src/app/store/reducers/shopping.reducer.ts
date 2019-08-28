@@ -20,6 +20,14 @@ export function ShoppingReducer(state: Array<ShoppingItem> = initialState, actio
           console.log(action.payload, action.type);
         return state.filter( item => item.id !== action.payload);
 
+        case ShoppingActionTypes.UPDATE_ITEM:
+            console.log(action.payload, action.type);
+            return state;
+           /*  const new_state = state.map(o => ({ ...o }));
+            console.log('new state' + new_state);
+            return new_state; */
+
+
     default:
       return state;
   }

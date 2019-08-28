@@ -10,7 +10,7 @@
 
   <ul>
     <li *ngFor="let shopping of shoppingItems$ | async" >
-      {{shopping.name}} <span (click)="deleteItem(shopping.id)">X</span>
+      {{shopping.name}} <span (click)="deleteItem(shopping.id)">X</span><span (click)="openFormUpdate(shopping)">U</span>
     </li>
   </ul>
 
@@ -22,6 +22,17 @@
 
   <button type="submit">Add</button>
 
+
+
 </form>
+
+<div *ngIf="update">
+  <form>
+    <input type="text" [(ngModel)]="updatedName" placeholder="item" name="itemName" />
+    <input type="hidden" [(ngModel)]="updatedId"/>
+    <button type="submit" (click)="updateItem({id: updatedId, name: updatedName})">Update</button>
+  </form>
+
+</div>
 
 <!-- <router-outlet></router-outlet> -->
