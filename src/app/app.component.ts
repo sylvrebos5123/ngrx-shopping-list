@@ -11,9 +11,11 @@ import {v4 as uuid} from 'uuid';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent implements OnInit {
   shoppingItems$: Observable<Array<ShoppingItem>>;
   newShoppingItem: ShoppingItem = {id: '', name: ''};
+  updatedShoppingItem: ShoppingItem = {id: '', name: ''};
   title = 'ngrx-shopping-list';
   update: boolean = false;
   updatedName: string;
@@ -42,29 +44,15 @@ export class AppComponent implements OnInit {
   }
 
   openFormUpdate(shoppingItem: ShoppingItem){
+    console.log(shoppingItem);
     this.update = true;
-    this.updatedName = shoppingItem.name;
-    this.updatedId = shoppingItem.id;
+    this.updatedShoppingItem.name = shoppingItem.name;
+    this.updatedShoppingItem.id = shoppingItem.id;
   }
 
   updateItem(shoppingItem: ShoppingItem) {
-    let i=0;
-    this.shoppingItems$.forEach(function(value) {
 
-      if(value[i].id === shoppingItem.id){
-        value[i].name=shoppingItem.name;
-      }
-     // value=shoppingItem;
-      console.log(value[i].id);
-      i++;
-
-    });
-
-    console.log('update');
-    shoppingItem.name = "Updated article";
-    console.log(shoppingItem);
-
-
+    this.update = false;
     this.store.dispatch(new UpdateItemAction(shoppingItem));
 
   }

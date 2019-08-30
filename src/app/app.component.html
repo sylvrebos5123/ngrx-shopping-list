@@ -28,9 +28,9 @@
 
 <div *ngIf="update">
   <form>
-    <input type="text" [(ngModel)]="updatedName" placeholder="item" name="itemName" />
-    <input type="hidden" [(ngModel)]="updatedId"/>
-    <button type="submit" (click)="updateItem({id: updatedId, name: updatedName})">Update</button>
+    <input type="text" [(ngModel)]="updatedShoppingItem.name" placeholder="item" name="itemName" [ngModelOptions]="{standalone: true}" />
+    <input type="hidden" [(ngModel)]="updatedShoppingItem.id" [ngModelOptions]="{standalone: true}"/>
+    <button type="submit" (click)="updateItem({id: updatedShoppingItem.id, name: updatedShoppingItem.name})">Update</button>
   </form>
 
 </div>
