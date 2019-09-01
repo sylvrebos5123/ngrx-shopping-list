@@ -17,18 +17,22 @@ const initialState: ShoppingState =
 ;
 
 export function ShoppingReducer(state: ShoppingState = initialState, action: ShoppingAction) {
-  console.log('state ' + state);
+ 
   switch (action.type) {
+
     case ShoppingActionTypes.LOAD_SHOPPING:
+      console.log(state, action.type);
       return {...state, loading: true};
 
     case ShoppingActionTypes.LOAD_SHOPPING_SUCCESS:
+     console.log(action.payload, action.type);
       return {
       ...state,
       list: action.payload,
       loading: false
     }
     case ShoppingActionTypes.LOAD_SHOPPING_FAILURE:
+      console.log(action.payload, action.type);
       return {
       ...state,
       error: action.payload,
@@ -36,6 +40,7 @@ export function ShoppingReducer(state: ShoppingState = initialState, action: Sho
     }
 
     case ShoppingActionTypes.ADD_ITEM:
+      console.log(action.payload, action.type);
       return {
         ...state,
         loading: true
@@ -43,15 +48,14 @@ export function ShoppingReducer(state: ShoppingState = initialState, action: Sho
 
     case ShoppingActionTypes.ADD_ITEM_SUCCESS:
       console.log(action.payload, action.type);
-      return [...state.list, 
-              action.payload];
-      /* const new_state = {...state, 
+      
+       const new_state = {...state, 
         list: action.payload, loading: false};
-        console.log('new state');
-        console.log(new_state);
-      return new_state; */
+       
+      return new_state; 
         
     case ShoppingActionTypes.ADD_ITEM_FAILURE:
+      console.log(action.payload, action.type);
       return {
         ...state,
         error: action.payload,
@@ -59,33 +63,50 @@ export function ShoppingReducer(state: ShoppingState = initialState, action: Sho
       };
 
     case ShoppingActionTypes.DELETE_ITEM:
+      console.log(state, action.type);
       return {
         ...state,
         loading: true
       };
 
       case ShoppingActionTypes.DELETE_ITEM_SUCCESS:
-          console.log(action.payload, action.type);
+          console.log(state, action.type);
         return {...state, 
           list: state.list.filter( item => item.id !== action.payload),
           loading: false
           };
 
           case ShoppingActionTypes.DELETE_ITEM_FAILURE:
+              console.log(state, action.type);
               return {
                 ...state,
                 error: action.payload,
                 loading: false
               };
 
-      case ShoppingActionTypes.UPDATE_ITEM:      
+      case ShoppingActionTypes.UPDATE_ITEM:
+          console.log(action.payload, action.type);
+        return {
+          ...state,
+          loading: true
+        };
+
+      case ShoppingActionTypes.UPDATE_ITEM_SUCCESS:      
         console.log(action.payload, action.type); 
              state.list.forEach(item => {
               if (item.id === action.payload.id) {
-                item.name=action.payload.name;
+                item=action.payload;
               }
           }); 
           return state;
+
+        case ShoppingActionTypes.UPDATE_ITEM_FAILURE:
+            console.log(action.payload, action.type);
+            return {
+              ...state,
+              error: action.payload,
+              loading: false
+            };
          
 
     default:

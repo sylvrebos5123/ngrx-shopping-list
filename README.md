@@ -1,3 +1,17 @@
+# Quick start
+
+git clone https://github.com/sylvrebos5123/ngrx-shopping-list.git
+
+cd ngrx-shopping-list
+
+yarn install 
+
+npm i json-server
+
+json-server db.json
+
+curl http://localhost:3000/shopping
+
 # NgrxShoppingList
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.0.

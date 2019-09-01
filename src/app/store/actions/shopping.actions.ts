@@ -73,6 +73,16 @@ export class UpdateItemAction implements Action{
   constructor(public payload: ShoppingItem) {}
 }
 
+export class UpdateItemSuccessAction implements Action{
+  readonly type = ShoppingActionTypes.UPDATE_ITEM_SUCCESS;
+  constructor(public payload: ShoppingItem) {}
+}
+
+export class UpdateItemFailureAction implements Action{
+  readonly type = ShoppingActionTypes.UPDATE_ITEM_FAILURE;
+  constructor(public payload: Error) {}
+}
+
 export type ShoppingAction = 
 AddItemAction 
 | AddItemSuccessAction
@@ -83,4 +93,6 @@ AddItemAction
 | LoadShoppingAction
 | LoadShoppingSuccessAction
 | LoadShoppingFailureAction
-| UpdateItemAction;
+| UpdateItemAction
+| UpdateItemSuccessAction
+| UpdateItemFailureAction;

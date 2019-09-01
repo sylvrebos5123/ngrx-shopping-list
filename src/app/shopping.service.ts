@@ -28,6 +28,13 @@ export class ShoppingService {
         );
     }
 
+    updateShoppingItem(shoppingItem: ShoppingItem) {
+        return this.http.put(`${this.SHOPPING_URL}/${shoppingItem.id}`, shoppingItem)
+        .pipe(
+            delay(500)
+        );
+    }
+
     deleteShoppingItem(id: string) {
         return this.http.delete(`${this.SHOPPING_URL}/${id}`)
         .pipe(
