@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { AppState } from './store/models/app-state.model';
 import { Observable } from 'rxjs';
 import { ShoppingItem } from './store/models/shopping-item.model';
-import { AddItemAction, DeleteItemAction, UpdateItemAction } from './store/actions/shopping.actions';
+import { AddItemAction, DeleteItemAction, UpdateItemAction, LoadShoppingAction } from './store/actions/shopping.actions';
 import {v4 as uuid} from 'uuid';
 
 @Component({
@@ -13,9 +13,11 @@ import {v4 as uuid} from 'uuid';
 })
 
 export class AppComponent implements OnInit {
-  shoppingItems$: Observable<Array<ShoppingItem>>;
+  shoppingItems: Observable<Array<ShoppingItem>>;
   newShoppingItem: ShoppingItem = {id: '', name: ''};
   updatedShoppingItem: ShoppingItem = {id: '', name: ''};
+  loading$: Observable<boolean>;
+  error$: Observable<Error>;
   title = 'ngrx-shopping-list';
   update: boolean = false;
   updatedName: string;
@@ -25,9 +27,10 @@ export class AppComponent implements OnInit {
   constructor(private store: Store<AppState>) {}
 
   ngOnInit(): void {
-   this.shoppingItems$ = this.store.select(store => store.shopping);
-
-
+    this.shoppingItems = this.store.select(store => store.shopping.list);
+    this.loading$ = this.store.select(store => store.shopping.loading);
+    this.error$ = this.store.select(store => store.shopping.error);
+    this.store.dispatch(new LoadShoppingAction());
   }
 
   addItem() {
@@ -35,12 +38,13 @@ export class AppComponent implements OnInit {
     this.store.dispatch(new AddItemAction(this.newShoppingItem));
 
     this.newShoppingItem = {id: '', name: ''};
+    //this.store.dispatch(new LoadShoppingAction());
   }
 
   deleteItem(index: string) {
 
     this.store.dispatch(new DeleteItemAction(index));
-
+    //this.store.dispatch(new LoadShoppingAction());
   }
 
   openFormUpdate(shoppingItem: ShoppingItem){

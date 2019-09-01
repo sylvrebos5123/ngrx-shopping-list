@@ -6,6 +6,9 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './store/reducers';
 import { ShoppingReducer } from './store/reducers/shopping.reducer';
+import { HttpClientModule } from '@angular/common/http';
+import { EffectsModule } from '@ngrx/effects';
+import { ShoppingEffects } from './store/effects/shopping.effects';
 
 @NgModule({
   declarations: [
@@ -14,10 +17,12 @@ import { ShoppingReducer } from './store/reducers/shopping.reducer';
   imports: [
     BrowserModule,
     FormsModule,
+    HttpClientModule,
+    EffectsModule.forRoot([ShoppingEffects]),
     StoreModule.forRoot({
       shopping: ShoppingReducer
     })
-    /*,
+ /*   ,
     AppRoutingModule ,
     StoreModule.forRoot(reducers, {
       metaReducers,
